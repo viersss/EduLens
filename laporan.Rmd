@@ -1,0 +1,192 @@
+---
+title: "Laporan Analisis Indikator Pendidikan Indonesia"
+author: "EduLens Dashboard"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 2
+    latex_engine: xelatex
+params:
+  selected_year: 2023
+  data_path: "data.csv"
+---
+
+```{r setup, include=FALSE}
+# Chunk ini mengatur environment laporan, memuat library dan data.
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = 'center')
+library(dplyr)
+library(ggplot2)
+library(ggfortify)
+library(tidyr)
+library(knitr)
+
+# Membaca data yang dikirim dari aplikasi Shiny
+laporan_data <- read.csv(params$data_path, fileEncoding = "UTF-8", check.names = FALSE)
+tahun_terpilih <- params$selected_year
+data_tahun_ini <- laporan_data %>% filter(year == tahun_terpilih)
+```
+
+\newpage
+
+# Ringkasan Analisis
+
+Laporan ini menyajikan analisis mendalam mengenai indikator pendidikan kunci di seluruh provinsi Indonesia untuk tahun **`r tahun_terpilih`**. Analisis meliputi statistik deskriptif, tren nasional historis, serta pemetaan multivariat menggunakan Analisis Komponen Utama (PCA) dalam bentuk Biplot. Tujuan dari laporan ini adalah mendukung pengambilan keputusan berbasis data dengan memberikan gambaran menyeluruh mengenai kondisi pendidikan di Indonesia.
+
+# 1. Statistik Agregat Provinsi
+
+Tabel berikut menunjukkan variasi data antarprovinsi pada tahun `r tahun_terpilih`.
+
+```{r tabel_ringkasan}
+# Menghitung statistik
+summary_stats <- data_tahun_ini %>%
+  summarise(
+    across(c(RLS, HLS, APM),
+           list(min = ~min(.x, na.rm = TRUE),
+                max = ~max(.x, na.rm = TRUE),
+                sd = ~sd(.x, na.rm = TRUE)),
+           .names = "{.col}_{.fn}")
+  )
+
+# Membuat tabel yang rapi untuk PDF
+tabel <- tibble(
+  Indikator = c("RLS (Tahun)", "HLS (Tahun)", "APM (%)"),
+  `Nilai Minimum` = c(summary_stats$RLS_min, summary_stats$HLS_min, summary_stats$APM_min),
+  `Nilai Maksimum` = c(summary_stats$RLS_max, summary_stats$HLS_max, summary_stats$APM_max),
+  `Standar Deviasi` = c(summary_stats$RLS_sd, summary_stats$HLS_sd, summary_stats$APM_sd)
+)
+
+knitr::kable(tabel, caption = "Ringkasan Statistik Deskriptif", digits = 2)
+```
+
+## Interpretasi Statistik Agregat Provinsi
+
+Berikut merupakan ringkasan deskriptif berupa nilai minimum, maksimum, dan standar deviasi untuk ketiga indikator pendidikan (RLS, HLS, APM) pada tahun `r tahun_terpilih`.
+
+- **Rentang (Minimum–Maksimum):**  
+  Rentang nilai menunjukkan **ketimpangan antarprovinsi**. Misalnya, provinsi dengan RLS minimum kemungkinan berada di wilayah dengan akses pendidikan lebih terbatas atau angka putus sekolah tinggi. Sebaliknya, provinsi dengan RLS maksimum biasanya berlokasi di kawasan urban atau dengan infrastruktur pendidikan yang lebih maju. Demikian pula pada HLS, nilai minimum dan maksimum memberi indikasi perbedaan harapan masa sekolah antara daerah maju dan tertinggal.  
+  Pada APM, rentang juga menggambarkan kesenjangan dalam **akses pendidikan dasar**—nilai APM yang rendah menandakan banyak anak usia sekolah tidak bersekolah atau tidak tepat jenjang.
+
+- **Standar Deviasi:**  
+  SD memberikan gambaran **seberapa besar penyebaran nilai antarprovinsi**. Semakin besar SD, semakin lebar variasi atau ketimpangan. Nilai SD yang tinggi pada APM menunjukkan disparitas signifikan dalam tingkat partisipasi pendidikan formal antarprovinsi.  
+  Identifikasi disparitas ini sangat penting untuk perencanaan kebijakan berbasis data. Provinsi dengan nilai ekstrem (baik sangat rendah atau tinggi) dapat menjadi fokus studi lebih mendalam, untuk evaluasi praktik kebijakan atau intervensi khusus.
+
+**Contoh Interpretasi Data (Umum):**  
+
+\vspace{0.1cm}
+
+ $\bullet$ Provinsi dengan RLS mendekati nilai maksimum (misalnya DKI Jakarta, DI Yogyakarta) memiliki akses   lebih baik ke jenjang pendidikan lebih tinggi.  
+ 
+ \vspace{0.3cm}
+ 
+ $\bullet$ Provinsi dengan HLS minimum (sering terjadi di kawasan timur) menandakan tantangan dalam pembangunan pendidikan jangka panjang.
+ 
+  \vspace{0.3cm}  
+           
+ $\bullet$ APM rendah mengindikasikan persoalan akses dan retensi pada jenjang wajib belajar.
+
+Melalui ringkasan agregat ini, pemerintah dapat **mengidentifikasi wilayah prioritas** untuk intervensi seperti peningkatan sarana prasarana, insentif guru, atau program beasiswa khusus untuk mendorong pemerataan pendidikan.
+
+# 2. Analisis Tren Indikator Nasional
+
+Grafik di bawah ini menunjukkan tren historis dari tiga indikator utama secara nasional.
+
+```{r plot_tren, fig.cap="Grafik Tren Indikator Pendidikan Nasional."}
+# Membuat plot tren menggunakan ggplot2
+tren_data <- laporan_data %>%
+  group_by(year) %>%
+  summarise(across(c(RLS, HLS, APM), ~mean(.x, na.rm=TRUE))) %>%
+  pivot_longer(cols = c(RLS, HLS, APM), names_to = "indicator", values_to = "value")
+
+ggplot(tren_data, aes(x = year, y = value, group = indicator, color = indicator)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  facet_wrap(~indicator, scales = "free_y", ncol = 1) +
+  labs(title = "Tren Indikator Pendidikan Nasional", x = "Tahun", y = "Nilai Rata-rata") +
+  theme_minimal() +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
+```
+
+## Interpretasi Analisis Tren Indikator Nasional
+
+Bagian tren indikator nasional memvisualisasikan rata-rata nilai ketiga indikator dari waktu ke waktu untuk seluruh Indonesia.
+
+- **Identifikasi Tren Jangka Panjang:**  
+  Pola kenaikan pada RLS dan HLS menunjukkan **kemajuan pembangunan pendidikan**. Peningkatan konsisten menandakan keberhasilan kebijakan wajib belajar, pembangunan sekolah, dan program akses pendidikan.
+  
+- **Variasi Kecepatan Pertumbuhan:**  
+  Jika RLS dan HLS tumbuh lebih lambat dalam beberapa tahun terakhir, hal ini mengindikasikan perlunya kebijakan tambahan untuk mendorong perbaikan kualitas pendidikan atau menurunkan angka putus sekolah.  
+  APM yang stagnan atau menurun bisa menjadi sinyal **ketidakmerataan akses pendidikan** terutama di wilayah terpencil atau terluar.
+
+- **Perbandingan Indikator:**  
+  Melalui analisis tren bersama, pembuat kebijakan bisa mengidentifikasi ketidakseimbangan. Misalnya, APM bisa meningkat lebih cepat daripada RLS jika fokus kebijakan hanya pada pendaftaran awal tanpa mempertahankan murid hingga jenjang lebih tinggi.  
+
+- **Efek Kebijakan:**  
+  Tren juga membantu mengevaluasi dampak kebijakan besar, seperti program wajib belajar 12 tahun atau pembangunan sekolah baru. Lonjakan atau penurunan pada grafik bisa berkorelasi dengan perubahan kebijakan atau peristiwa nasional (misal pandemi yang memengaruhi partisipasi sekolah).
+
+**Contoh Insight:**
+
+\vspace{0.1cm}
+
+ $\bullet$ Tren RLS yang meningkat namun perlahan bisa menunjukkan perlunya peningkatan kualitas dan akses pendidikan menengah atas.
+
+\vspace{0.3cm}
+
+ $\bullet$ Tren APM yang menurun atau stagnan dapat menandakan hambatan biaya, jarak, atau kurangnya fasilitas pendidikan yang memadai di beberapa provinsi.
+
+Melalui interpretasi tren nasional ini, pemerintah dapat merancang **intervensi berskala nasional maupun lokal**, memperbaiki kebijakan yang stagnan, dan menargetkan wilayah atau jenjang pendidikan yang paling memerlukan perhatian.
+
+\newpage
+
+# 3. Analisis Biplot (PCA)
+
+Biplot berikut memetakan provinsi-provinsi berdasarkan karakteristik pendidikannya pada tahun `r tahun_terpilih`.
+
+```{r plot_biplot, fig.cap="Biplot Provinsi Berdasarkan Indikator Pendidikan."}
+df_clean <- data_tahun_ini %>% select(Provinsi, RLS, HLS, APM) %>% na.omit()
+
+if(nrow(df_clean) > 2){
+    pca_res <- prcomp(select(df_clean, -Provinsi), scale. = TRUE)
+
+    # Membuat Biplot menggunakan ggfortify
+    autoplot(pca_res, data = df_clean, label = TRUE, label.size = 2.5,
+             colour = '#3498db',
+             loadings = TRUE, loadings.colour = '#e74c3c',
+             loadings.label = TRUE, loadings.label.colour = '#e74c3c',
+             loadings.label.size = 4, loadings.arrow.size = 1.2) +
+      theme_bw() +
+      labs(title = "Analisis Biplot Provinsi",
+           subtitle = paste("Tahun", tahun_terpilih),
+           caption = "Sumber: EduLens Dashboard")
+} else {
+    cat("Data tidak cukup untuk membuat Biplot.")
+}
+```
+
+## Interpretasi Biplot
+Analisis Biplot pada gambar di atas memvisualisasikan distribusi provinsi dalam ruang dua komponen utama (PC1 dan PC2) hasil Analisis Komponen Utama (PCA) terhadap RLS (Rata-rata Lama Sekolah), HLS (Harapan Lama Sekolah), dan APM (Angka Partisipasi Murni). PCA mereduksi dimensi data menjadi kombinasi linier yang menangkap variasi terbesar untuk mengidentifikasi pola korelasi antarvariabel dan mengelompokkan provinsi berdasarkan kesamaan profil pendidikannya.
+
+* **Interpretasi Panah** (Loadings):
+
+Panah merepresentasikan kontribusi (loadings) variabel pada komponen utama. Panjang dan arah panah mengindikasikan korelasi variabel terhadap sumbu utama.
+
+Panah RLS, HLS, dan APM yang membentuk sudut kecil menandakan korelasi positif kuat antarindikator pendidikan.
+
+Komponen utama pertama (PC1) umumnya mencerminkan dimensi tingkat pendidikan keseluruhan, yang memadukan variasi ketiga indikator.
+
+* **Interpretasi Titik** (Observasi/Provinsi):
+
+Titik pada biplot menunjukkan proyeksi provinsi dalam ruang PC1-PC2 berdasarkan skor komponen utama.
+
+Provinsi yang searah dengan panah indikator cenderung memiliki nilai lebih tinggi pada indikator tersebut, sementara provinsi yang berlawanan memiliki nilai lebih rendah.
+
+Provinsi yang berdekatan di biplot memiliki profil indikator yang serupa, menunjukkan kesamaan dalam capaian pendidikan.
+
+* **Contoh Temuan pada tahun terpilih:**
+
+Provinsi dengan skor PC1 tinggi seperti DKI Jakarta, DI Yogyakarta, atau Bali cenderung memiliki performa lebih baik pada ketiga indikator pendidikan.
+
+Provinsi di kawasan timur, misalnya Papua dan Papua Barat, berada pada skor PC1 lebih rendah, mengindikasikan tantangan yang lebih besar dalam meningkatkan RLS, HLS, dan APM.
+
+Penyebaran provinsi di sepanjang PC1 mencerminkan disparitas antarwilayah dalam capaian pendidikan, sementara variasi pada PC2 dapat merefleksikan pola perbedaan yang lebih halus, seperti dominasi partisipasi sekolah dibanding lama sekolah.
+
