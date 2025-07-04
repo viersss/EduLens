@@ -1,47 +1,98 @@
-# EduLens
-Sebuah dasbor interaktif yang dibangun dengan R dan Shiny untuk menganalisis dan memvisualisasikan data indikator pendidikan kunci di Indonesia.
+# EduLens: Dashboard Analisis Indikator Pendidikan Indonesia
 
-📖 Deskripsi Proyek
-EduLens adalah alat analisis data yang dirancang untuk mengubah data statistik pendidikan yang kompleks menjadi wawasan yang mudah dicerna. Dasbor ini fokus pada tiga indikator utama dari Badan Pusat Statistik (BPS):
+Dasbor interaktif yang dibangun dengan R dan Shiny untuk menganalisis dan memvisualisasikan data indikator pendidikan kunci di seluruh provinsi di Indonesia.
 
-RLS (Rata-rata Lama Sekolah): Mengukur tingkat pendidikan aktual populasi.
+![Screenshot Dasbor EduLens](Main_View1.png)
+![Screenshot Dasbor EduLens](Main_View2.png)
+![Screenshot Dasbor EduLens](Main_View3.png)
 
-HLS (Harapan Lama Sekolah): Mengukur ekspektasi dan akses terhadap pendidikan.
+---
 
-APM (Angka Partisipasi Murni): Mengukur efektivitas sistem pendidikan.
+## Deskripsi Proyek
 
-Dengan antarmuka yang intuitif, pengguna dapat melakukan eksplorasi data secara nasional maupun per provinsi, mengidentifikasi tren, membandingkan antar wilayah, dan menemukan pola tersembunyi dalam data.
+**EduLens** adalah sebuah aplikasi web analitis yang dirancang untuk mentransformasi data statistik pendidikan yang kompleks menjadi wawasan yang dapat ditindaklanjuti. Aplikasi ini memberikan para pemangku kepentingan, peneliti, dan publik akses untuk mengeksplorasi tren dan memahami dinamika lanskap pendidikan di Indonesia.
 
-✨ Fitur Utama
-📊 Dashboard Interaktif: Visualisasi data yang dinamis dan responsif terhadap input pengguna (pemilihan tahun dan provinsi).
+Fokus utama dasbor ini adalah analisis tiga indikator kunci dari Badan Pusat Statistik (BPS):
+* **Rata-rata Lama Sekolah (RLS):** Merefleksikan tingkat pendidikan aktual yang diselesaikan oleh populasi dewasa.
+* **Harapan Lama Sekolah (HLS):** Memproyeksikan ekspektasi dan aksesibilitas sistem pendidikan untuk generasi mendatang.
+* **Angka Partisipasi Murni (APM):** Mengindikasikan efektivitas sistem pendidikan dalam menjangkau populasi usia sekolah pada jenjang yang relevan.
 
-🌐 Analisis Data Nasional & Provinsi: Tampilan agregat statistik nasional dan perbandingan detail untuk setiap provinsi, lengkap dengan interpretasi statistik.
+## Fitur Utama
 
-📈 Visualisasi Tren: Grafik garis untuk melihat perkembangan indikator dari tahun ke tahun.
+* **Dasbor Interaktif:** Visualisasi data yang dinamis dan responsif terhadap input pengguna, seperti pemilihan tahun dan provinsi.
+* **Analisis Komparatif:** Menyajikan data statistik agregat di tingkat nasional dan perbandingan detail untuk setiap provinsi, dilengkapi dengan interpretasi statistik.
+* **Visualisasi Data Multi-dimensi:**
+    * **Analisis Tren:** Grafik garis untuk memantau perkembangan indikator dari waktu ke waktu.
+    * **Analisis Spasial:** Peta Bivariat interaktif untuk menganalisis korelasi spasial antara dua indikator.
+    * **Analisis Komponen Utama (PCA):** Biplot untuk memetakan hubungan antar variabel dan posisi relatif setiap provinsi.
+    * **Analisis Similaritas:** Heatmap untuk mengelompokkan provinsi berdasarkan kemiripan profil indikator pendidikannya.
+* **Fungsionalitas Unggah Data:** Memungkinkan pengguna untuk mengunggah dan menganalisis set data mereka sendiri (`.xlsx` atau `.csv`).
+* **Manajemen Data:** Termasuk fitur pratinjau data interaktif dan fungsi untuk me-reset kembali ke data default.
+* **Ekspor Laporan:** Opsi untuk mengunduh laporan analisis lengkap dalam format PDF dan mengekspor visualisasi sebagai gambar (`.png`).
 
-🗺️ Analisis Spasial: Peta Bivariat interaktif untuk menganalisis korelasi antara dua indikator secara geografis.
+---
 
-🔬 Analisis Statistik Lanjutan:
+## Teknologi yang Digunakan
 
-Analisis Biplot (PCA): Memetakan hubungan antar indikator dan posisi relatif setiap provinsi.
+Proyek ini dibangun menggunakan ekosistem R dengan beberapa pustaka inti sebagai berikut:
+* **Aplikasi Web:** `shiny`
+* **Manipulasi Data:** `dplyr`, `tidyr`
+* **Visualisasi:** `plotly`, `leaflet`
+* **Tabel Interaktif:** `DT`
+* **UI & UX:** `shinyjs`
+* **Pelaporan:** `rmarkdown`
+* **Utilitas:** `readxl`, `sf`, `htmlwidgets`, `webshot`
 
-Heatmap Similaritas: Mengelompokkan provinsi berdasarkan kemiripan profil pendidikannya.
+---
 
-📤 Unggah Data Kustom: Pengguna dapat mengunggah file data sendiri (.xlsx atau .csv) untuk dianalisis oleh dasbor.
+## Panduan Instalasi dan Penggunaan
 
-📋 Manajemen Data: Fitur pratinjau data (data preview) yang interaktif, serta fungsi untuk me-reset data kembali ke data awal.
+Untuk menjalankan dasbor ini secara lokal, ikuti langkah-langkah di bawah ini.
 
-📄 Unduh Laporan & Grafik: Opsi untuk mengunduh laporan analisis lengkap dalam format PDF dan mengunduh setiap grafik sebagai gambar (.png).
+1.  **Clone Repositori**
+    ```bash
+    git clone [https://github.com/NAMA_USERNAME_ANDA/NAMA_REPO_ANDA.git](https://github.com/NAMA_USERNAME_ANDA/NAMA_REPO_ANDA.git)
+    cd NAMA_REPO_ANDA
+    ```
 
-📦 Teknologi yang Digunakan
-Proyek ini dibangun sepenuhnya menggunakan ekosistem R, dengan beberapa pustaka utama:
+2.  **Instal Dependensi**
+    Buka R atau RStudio, lalu jalankan skrip berikut di konsol untuk menginstal semua pustaka yang dibutuhkan:
+    ```r
+    install.packages(c("shiny", "shinyjs", "plotly", "dplyr", "tidyr", "readxl", "leaflet", "sf", "DT", "htmlwidgets", "webshot", "rmarkdown"))
+    
+    # Untuk fungsionalitas unduh grafik, instalasi PhantomJS mungkin diperlukan.
+    # Jalankan perintah ini jika belum terinstal.
+    webshot::install_phantomjs()
+    ```
 
-Backend & Frontend: Shiny
+3.  **Jalankan Aplikasi**
+    Di dalam direktori proyek, jalankan perintah berikut pada konsol R:
+    ```r
+    shiny::runApp()
+    ```
+    Aplikasi akan berjalan dan dapat diakses melalui browser web Anda.
 
-Manipulasi Data: dplyr, tidyr
+---
 
-Visualisasi: plotly (Grafik Interaktif), leaflet (Peta)
 
-Tabel Data: DT
+## Kontribusi
 
-Laporan PDF: rmarkdown
+Kami menyambut baik kontribusi dari komunitas. Jika Anda tertarik untuk berkontribusi, silakan ikuti alur standar berikut:
+1.  *Fork* repositori ini.
+2.  Buat *branch* fitur baru (`git checkout -b fitur/NamaFitur`).
+3.  *Commit* perubahan Anda (`git commit -m 'Menambahkan fitur X'`).
+4.  *Push* ke *branch* tersebut (`git push origin fitur/NamaFitur`).
+5.  Buat *Pull Request* baru untuk kami tinjau.
+
+---
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah **Lisensi MIT**. Silakan merujuk ke file `LICENSE` untuk informasi lebih lanjut.
+
+---
+
+Dibuat oleh **Kelompok 12**
+- Danang Ivan Pangestu
+- Xavier Yubin Raditio
+- Irish Shanty Kinsela Putri
