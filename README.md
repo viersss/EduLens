@@ -2,6 +2,11 @@
 
 Dasbor interaktif yang dibangun dengan R dan Shiny untuk menganalisis dan memvisualisasikan data indikator pendidikan kunci di seluruh provinsi di Indonesia.
 
+🌐 Live App
+Silakan akses EduLens Dashboard ini secara online melalui link berikut:
+https://s.stis.ac.id/EduLens
+
+## View Dashboard
 ![Screenshot Dasbor EduLens](Main_View1.png)
 ![Screenshot Dasbor EduLens](Main_View2.png)
 ![Screenshot Dasbor EduLens](Main_View3.png)
