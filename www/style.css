@@ -1,0 +1,1684 @@
+/* =================================
+   GAYA UMUM & DASHBOARD
+   ================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+font-family: 'Poppins', sans-serif;    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Menghilangkan background gradien saat di halaman dashboard */
+body.dashboard-page {
+    background: #f8f9fa;
+}
+
+
+header.premium-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    backdrop-filter: saturate(180%) blur(20px);
+    background: rgba(102, 126, 234, 0.35);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 1100;
+    color: white;
+    user-select: none;
+}
+
+header.premium-header .brand {
+    font-weight: 800;
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    letter-spacing: 0.05em;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.upload-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+#fileInput {
+    display: none;
+}
+
+.upload-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: rgba(255 255 255 / 0.15);
+    border: 1.5px solid rgba(255 255 255 / 0.4);
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    user-select: none;
+}
+
+.upload-btn:hover,
+.upload-btn:focus-visible {
+    background: rgba(255 255 255 / 0.3);
+    border-color: #fff;
+    outline: none;
+}
+
+.material-icons {
+    font-size: 20px;
+    line-height: 1;
+}
+
+aside.sidebar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    background: rgba(255 255 255 / 0.1);
+    backdrop-filter: saturate(180%) blur(20px);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.25);
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 1090;
+    overflow-y: auto;
+}
+
+body.dashboard-page aside.sidebar {
+    background: white;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+}
+
+
+aside.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+aside.sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 24px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    border-left: 4px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    user-select: none;
+}
+
+body.dashboard-page aside.sidebar nav a {
+    color: #333;
+}
+
+div{
+  scroll-margin-top:80px;
+}
+
+aside.sidebar nav a .material-icons {
+    font-size: 24px;
+}
+
+aside.sidebar nav a:hover,
+aside.sidebar nav a:focus-visible,
+aside.sidebar nav a.active {
+    background: rgba(255 255 255 / 0.15);
+    border-left-color: #667eea;
+    outline: none;
+}
+
+body.dashboard-page aside.sidebar nav a:hover,
+body.dashboard-page aside.sidebar nav a:focus-visible,
+body.dashboard-page aside.sidebar nav a.active {
+    background: #eef2ff;
+}
+
+
+main.content-area {
+    margin-top: 64px;
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+body.dashboard-page main.content-area {
+     margin-left: 280px;
+     max-width: calc(100% - 280px);
+}
+
+body.home-page main.content-area {
+    margin-left: 0;
+    max-width: 100%;
+}
+
+.header {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    user-select: none;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.controls {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.control-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.control-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+.control-item label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.control-item select {
+    padding: 10px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    transition: border-color 0.3s ease;
+}
+
+.control-item select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.stats-container {
+    margin-bottom: 30px;
+}
+
+.stats-section {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+
+.stats-section h3 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 5px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card.hls {
+    background: linear-gradient(135deg, #4ecdc4, #7ed6d1);
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+.stat-card.apm {
+    background: linear-gradient(135deg, #45b7d1, #72c7e0);
+    box-shadow: 0 4px 15px rgba(69, 183, 209, 0.3);
+}
+
+.stat-card.top {
+    background: linear-gradient(135deg, #96ceb4, #b8dcc6);
+    box-shadow: 0 4px 15px rgba(150, 206, 180, 0.3);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+}
+
+.chart-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.chart-container:hover {
+    transform: translateY(-2px);
+}
+
+.chart-container.full-width {
+    grid-column: 1 / -1;
+}
+
+.chart-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+section{
+    scroll-margin-top:150px;
+}
+
+/* =================================
+   GAYA KHUSUS HALAMAN HOME
+   ================================= */
+.home-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 40px 20px;
+    color: white;
+    margin: auto 0;
+}
+
+.hero-section h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-section p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    max-width: 800px;
+    margin: 0 auto 40px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 30px;
+    background: white;
+    color: #667eea;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-decoration: none !important;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card .material-icons {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.feature-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.about-us-card {
+    margin: 20px auto; 
+    max-width: 1200px; 
+    width: 100%;
+}
+
+.about-us-img {
+    width: 750px; 
+    border-radius: 10px; 
+    max-width: 100%;
+}
+
+.about-us-names {
+    display: flex; 
+    justify-content: center; 
+    gap: 40px; 
+    margin-top: 20px;
+    font-family: monospace;
+}
+
+
+/* =================================
+   RESPONSIVE & MOBILE
+   ================================= */
+@media (max-width: 767px) {
+    body.dashboard-page {
+        display: block;
+    }
+    
+    header.premium-header {
+        padding: 0 12px;
+    }
+
+    /* Sembunyikan sidebar di mobile, akan di-toggle dengan JS */
+    aside.sidebar {
+        left: -280px;
+        height: 100vh;
+        transition: left 0.3s ease;
+    }
+    
+    body.dashboard-page aside.sidebar {
+        background: rgba(255, 255, 255, 0.95);
+    }
+    
+    aside.sidebar.open {
+        left: 0;
+    }
+
+    main.content-area, 
+    body.dashboard-page main.content-area,
+    body.home-page main.content-area {
+        margin-left: 0;
+        padding: 20px 12px;
+        max-width: 100%;
+    }
+
+    .menu-toggle-button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1095; /* Di bawah sidebar tapi di atas konten */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0s 0.3s;
+    }
+
+    aside.sidebar.open + .sidebar-overlay {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0s;
+    }
+    
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 768px) {
+    .menu-toggle-button {
+        display: none;
+    }
+    .sidebar-overlay {
+        display: none;
+    }
+}
+
+/* =================================
+   KUSTOMISASI TOMBOL UPLOAD FILE
+   ================================= */
+
+/* Container pembungkus yang kita buat di server.R */
+.custom-file-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+
+/* Target 'div' di dalam fileInput untuk menyembunyikan
+  teks 'No file selected'.
+*/
+.custom-file-input-container .form-control {
+  display: none !important;
+}
+
+/* Target 'label' yang berfungsi sebagai tombol 'Browse...' 
+*/
+.custom-file-input-container label.btn {
+  /* Mengambil gaya dari .upload-btn Anda */
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 12px !important;
+  color: white !important;
+  font-weight: 600;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  user-select: none;
+  margin-bottom: 0 !important; /* Menghapus margin bawah default */
+}
+
+.custom-file-input-container label.btn:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: #fff !important;
+}
+
+/* Menambahkan ikon 'upload_file' sebelum teks tombol */
+.custom-file-input-container label.btn::before {
+  font-family: 'Material Icons';
+  content: "upload_file"; /* Nama ikon dari Google Fonts */
+  font-size: 20px;
+  margin-right: 6px;
+  line-height: 1;
+}
+
+/* =================================
+   KUSTOMISASI AREA UPLOAD FILE
+   ================================= */
+
+.upload-area {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Spasi antara teks dan tombol upload */
+  padding-right: 20px; /* Sedikit ruang di sisi kanan */
+}
+
+.upload-text {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* Container pembungkus input file */
+.custom-file-input-container {
+  position: relative;
+  display: inline-block; /* Agar tidak mengambil seluruh lebar */
+}
+
+/* Menyembunyikan input file asli */
+.custom-file-input-container input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.custom-file-input-container input::before {
+  content: 'Pilih File'; /* Teks pengganti (akan kita timpa dengan ikon dan teks di label) */
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: bold;
+}
+
+.custom-file-input-container input:hover::before {
+  border-color: #777;
+}
+
+/* Style untuk label yang sekarang berfungsi sebagai tombol */
+.custom-file-input-container label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 0 !important; /* Override margin bawah default */
+}
+
+.custom-file-input-container label:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #fff;
+}
+
+.custom-file-input-container .browse-text {
+  /* Style tambahan untuk teks "Cari" jika diperlukan */
+}
+
+/* Style untuk placeholder */
+.shiny-input-container:has(#fileInput) input.form-control {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  border: none !important;
+  color: #eee !important;
+  border-radius: 8px !important;
+  padding: 6px 12px !important;
+  font-size: 0.9rem !important;
+}
+
+.shiny-input-container:has(#fileInput) input.form-control::placeholder {
+  color: #ccc !important;
+}
+
+/* =================================
+   GAYA BARU UNTUK AREA UPLOAD
+   ================================= */
+
+/* Container utama untuk teks dan tombol upload */
+.upload-area {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Jarak antara teks dan tombol */
+}
+
+/* Teks "Upload file anda disini ->" */
+.upload-text {
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap; /* Mencegah teks turun baris */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* =================================
+   GAYA BARU UNTUK AREA UPLOAD (LEBIH ANDAL)
+   ================================= */
+
+.upload-area {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Jarak antara teks dan tombol */
+}
+
+.upload-text {
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.custom-upload-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer; 
+  user-select: none;
+  margin: 0;
+}
+
+.custom-upload-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #fff;
+}
+
+/* =================================
+   GAYA BARU UNTUK BAGIAN TENTANG KAMI
+   ================================= */
+
+/* Kontainer untuk mensejajarkan kartu profil */
+.team-members-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px; /* Jarak antar kartu */
+  margin-top: 30px;
+  flex-wrap: wrap; /* Agar responsif di layar kecil */
+  width: 100%;
+}
+
+/* Gaya untuk setiap kartu profil anggota */
+.team-member-card {
+  background: rgba(255, 255, 255, 0.08); /* Sedikit lebih terlihat */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px; /* Cocok dengan card lainnya */
+  padding: 25px 20px;
+  width: 240px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Ikon profil di atas nama */
+.team-member-card .material-icons {
+  font-size: 64px; /* Ikon lebih besar */
+  margin-bottom: 15px;
+}
+
+/* Nama anggota */
+.team-member-card h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-family: monospace; /* Sesuai permintaan Anda */
+  letter-spacing: 1.5px;
+}
+
+/* Peran anggota (misal: Project Lead) */
+.team-member-card p.role {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 5px;
+  font-weight: 500;
+  opacity: 1; /* Override opacity dari .feature-card p */
+}
+
+/* =================================
+   GAYA BARU UNTUK FOOTER
+   ================================= */
+.site-footer {
+  background-color: #2c3e50; /* Warna biru dongker gelap */
+  color: #a7a7a7; /* Warna teks abu-abu terang */
+  padding: 45px 0 20px;
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.site-footer .footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.site-footer .footer-section {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+  .site-footer .footer-section {
+    width: 30%;
+  }
+}
+
+.site-footer h3 {
+  color: #ffffff;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.site-footer .logo-text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 800;
+}
+
+.site-footer p {
+  color: #737373;
+}
+
+.site-footer .about p {
+  margin-bottom: 20px;
+  color: #a7a7a7;
+}
+
+.site-footer .contact span {
+  display: block;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.site-footer .contact span .material-icons {
+  font-size: 18px;
+  margin-right: 10px;
+  color: #a7a7a7;
+}
+
+.site-footer .links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.site-footer .links ul li a {
+  color: #a7a7a7;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: block;
+  padding-bottom: 10px;
+}
+
+.site-footer .links ul li a:hover {
+  color: #667eea; /* Warna ungu dari tema Anda */
+}
+
+.site-footer .social a {
+  display: inline-block;
+  margin-right: 15px;
+  transition: transform 0.3s ease;
+}
+
+.site-footer .social a:hover {
+    transform: translateY(-3px);
+}
+
+.site-footer .social a img {
+  width: 28px;
+  height: 28px;
+  filter: invert(75%) sepia(0%) saturate(1) hue-rotate(0deg) brightness(100%) contrast(85%); /* Mengubah ikon SVG menjadi warna abu-abu */
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 25px 0;
+  margin-top: 20px;
+  border-top: 1px solid #3a4b5f;
+  color: #737373;
+}
+
+/* =================================
+   GAYA BARU UNTUK FOTO PROFIL
+   ================================= */
+.profile-image {
+  width: 190px;      
+  height: 250px;
+  border-radius: 50px;  
+  object-fit: cover;   
+  margin-bottom: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.team-member-card:hover .profile-image {
+  transform: scale(1.07); 
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); 
+}
+
+.team-member-card {
+background: rgba(255, 255, 255, 0.08);
+border: 1px solid rgba(255, 255, 255, 0.2);
+border-radius: 15px;
+padding: 25px 20px;
+width: 280px;      
+text-align: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member-card .material-icons {
+  display: none;
+}
+
+/* =================================
+   DEFINISI VARIABEL WARNA (TEMA)
+   ================================= */
+:root {
+  /* Tema Light (Default) */
+  --bg-main: #f4f6f9;
+  --bg-panel: #ffffff;
+  --bg-header: #2c3e50;
+  --bg-sidebar: #ffffff;
+  --bg-sidebar-hover: #eaf2f8;
+  --text-primary: #34495e;
+  --text-secondary: #7f8c8d;
+  --text-on-dark-bg: #ecf0f1;
+  --border-color: #dfe4ea;
+  --accent-blue: #3498db;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode {
+  /* Tema Dark */
+  --bg-main: #0f172a;
+  --bg-panel: #1e293b;
+  --bg-header: #1e293b;
+  --bg-sidebar: #1e293b;
+  --bg-sidebar-hover: #334155;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-on-dark-bg: #e2e8f0;
+  --border-color: #334155;
+  --accent-blue: #58a6ff;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+/* =================================
+   GAYA TOMBOL TOGGLE TEMA
+   ================================= */
+.header-controls { 
+  display: flex; 
+  align-items: center; 
+  gap: 20px; 
+}
+
+.theme-switch { 
+  cursor: pointer; 
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+.theme-switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider { 
+  background-color: #4a4a4b; 
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 100px; 
+  transition: background-color 0.3s; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.slider .sun { color: #f1c40f; font-size: 16px; }
+.slider .moon { color: #f0f0f0; font-size: 16px; }
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.theme-switch input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+/* =================================
+   GAYA UNTUK DESKRIPSI GRAFIK
+   ================================= */
+.chart-description {
+  margin-top: 15px; 
+  padding: 10px 15px;
+  font-size: 0.9rem; 
+  color: #555;     
+  background-color: #f8f9fa; 
+  border-left: 4px solid #667eea; 
+  line-height: 1.6;
+  text-align: justify;
+}
+
+body.dark-mode .chart-description {
+  color: var(--text-secondary);
+  background-color: rgba(0,0,0,0.2);
+  border-left-color: var(--accent-blue);
+}
+
+/* =================================
+   GAYA BAGIAN AJAKAN TUTORIAL
+   ================================= */
+.tutorial-prompt-section {
+  text-align: center;
+  padding: 60px 20px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.tutorial-prompt-section h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin-bottom: 10px;
+}
+
+.tutorial-prompt-section p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+.scroll-down-arrow {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  font-size: 50px; /* Membuat ikon panah menjadi besar */
+  transition: transform 0.3s ease;
+  animation: bounce 2s infinite; /* Menambahkan animasi naik-turun */
+}
+
+.scroll-down-arrow:hover {
+  transform: scale(1.1);
+}
+
+.scroll-down-arrow .material-icons {
+    font-size: inherit; /* Membuat ikon mewarisi ukuran font dari parent-nya */
+}
+
+/* Animasi untuk membuat panah "memantul" */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+/* =================================
+   GAYA TABEL RINGKASAN STATISTIK
+   ================================= */
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.summary-table thead tr {
+  background-color: #667eea; /* Warna ungu dari tema */
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+}
+
+.summary-table th, .summary-table td {
+  padding: 12px 15px;
+  border: 1px solid #e1e5e9;
+}
+
+.summary-table tbody tr {
+  border-bottom: 1px solid #f3f3f3;
+  text-align: center;
+}
+
+.summary-table tbody tr:nth-of-type(even) {
+  background-color: #f8f9fa;
+}
+
+.summary-table tbody tr:last-of-type {
+  border-bottom: 2px solid #667eea;
+}
+
+.summary-table tbody tr:hover {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.summary-table tbody th {
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+}
+
+
+/* =================================
+   GAYA UNTUK TOMBOL UNDUH
+   ================================= */
+.chart-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.chart-title-container .chart-title {
+  margin-bottom: 0;
+}
+
+.download-btn {
+  /* Sedikit override style default shiny */
+  background-color: #7f8c8d !important; /* Warna abu-abu netral */
+  border-color: #7f8c8d !important;
+  color: white !important;
+  padding: 4px 10px !important;
+  font-size: 0.8rem !important;
+}
+
+.download-btn:hover {
+  background-color: #95a5a6 !important;
+}
+
+/* Memberi warna berbeda untuk tombol unduh data dan reset */
+.btn-success {
+    background-color: #27ae60 !important;
+    border-color: #27ae60 !important;
+}
+.btn-success:hover {
+    background-color: #2ecc71 !important;
+}
+
+.btn-warning {
+    background-color: #f39c12 !important;
+    border-color: #f39c12 !important;
+}
+.btn-warning:hover {
+    background-color: #f1c40f !important;
+}
+
+/* =================================
+   GAYA LEGENDA PETA BIVARIAT
+   ================================= */
+.bivar-legend-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  background: rgba(255,255,255,0.8);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.bivar-legend {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+}
+
+.bivar-cell {
+  width: 100%;
+  height: 100%;
+  border: 1px solid white;
+}
+
+.bivar-axis {
+  position: absolute;
+  display: flex;
+  font-size: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.bivar-axis-y {
+  flex-direction: column;
+  justify-content: space-between;
+  left: -55px; 
+  top: 10px;
+  height: 150px;
+  text-align: right;
+  width: 50px;
+}
+
+.bivar-axis-x {
+  flex-direction: row;
+  justify-content: space-between;
+  bottom: -20px; 
+  left: 10px;
+  width: 150px;
+}
+
+.bivar-axis span {
+  display: block;
+}
+
+/* =================================
+   GAYA BARU UNTUK HERO SECTION
+   ================================= */
+.hero-section h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem); /* Ukuran font lebih besar dan responsif */
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 25px; /* Jarak lebih besar ke paragraf */
+}
+
+.hero-section p {
+    font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+    line-height: 1.7;
+}
+
+.highlight-text {
+  /* Efek gradien pada teks */
+  background: linear-gradient(120deg, #e0c3fc, #8ec5fc, #ffffff, #e0c3fc);
+  background-size: 300% 300%; /* Membuat gradien lebih besar untuk animasi */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent !important; /* !important untuk memaksa override */
+  text-fill-color: transparent !important;
+  display: inline-block;
+  
+  /* Tambahan untuk membuatnya lebih menonjol */
+  font-weight: 700; /* Pastikan font lebih tebal */
+  text-shadow: 0px 2px 8px rgba(216, 180, 254, 0.3);
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+  
+  /* Animasi gradien yang bergerak */
+  animation: gradient-animation 4s ease infinite;
+}
+
+.highlight-text:hover {
+  transform: scale(1.03); /* Sedikit membesar saat di-hover */
+  text-shadow: 0px 4px 15px rgba(216, 180, 254, 0.5); /* Bayangan lebih kuat saat di-hover */
+  cursor: pointer; /* Mengubah kursor untuk menandakan interaksi */
+}
+
+/* Keyframe untuk animasi gradien bergerak */
+@keyframes gradient-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* =================================
+   GAYA UNTUK HALAMAN KHUSUS
+   ================================= */
+.page-container {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 124px); /* Mengisi tinggi layar */
+}
+
+/* =================================
+   GAYA UNTUK KOTAK UNGGAH
+   ================================= */
+.upload-box-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  border: 2px dashed #bdc3c7;
+  border-radius: 15px;
+  margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Mengubah tampilan default fileInput Shiny */
+.shiny-input-container:has(#fileInput) {
+    width: 100%;
+}
+.shiny-input-container:has(#fileInput) .progress {
+    display: none; /* Sembunyikan progress bar default */
+}
+
+/* =================================
+   GAYA FOOTER BARU YANG PROFESIONAL
+   ================================= */
+.site-footer {
+  background-color: #2c3e50; /* Warna biru dongker gelap */
+  color: #a7a7a7; /* Warna teks abu-abu terang */
+  padding: 50px 0 20px;
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.site-footer .footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Membuat dua kolom */
+  align-items: flex-start;
+  padding: 0 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px; /* Jarak antar kolom */
+}
+
+.site-footer .footer-section {
+  flex: 1; /* Agar kedua kolom fleksibel */
+  min-width: 300px; /* Lebar minimum sebelum wrap */
+}
+
+/* Kolom Kiri (Tentang) */
+.site-footer .about h3.logo-text {
+  color: #ffffff;
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-top: 0;
+  letter-spacing: 1.5px;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.site-footer .about p {
+  color: #bdc3c7; /* Warna teks sedikit lebih terang */
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+
+/* Kolom Kanan (Sumber Daya) */
+.site-footer .resources h3 {
+  color: #ffffff;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.site-footer p.resources-intro {
+  color: #95a5a6;
+  margin-bottom: 25px;
+  font-style: italic;
+}
+
+.site-footer .resources ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Jarak antar link */
+}
+
+.resource-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #bdc3c7;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.resource-link .resource-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor; /* Warna ikon mengikuti warna teks */
+  transition: transform 0.3s ease;
+  flex-shrink: 0; /* Mencegah ikon menyusut */
+}
+
+.resource-link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: translateX(5px);
+}
+
+.resource-link.youtube-link:hover {
+  color: #ff4d4d; /* Warna merah YouTube */
+}
+
+.resource-link.github-link:hover {
+  color: #ffffff; /* Warna putih GitHub */
+}
+
+/* Bagian Bawah Footer */
+.footer-bottom {
+  text-align: center;
+  padding: 25px 0;
+  margin-top: 40px;
+  border-top: 1px solid #3a4b5f;
+  color: #737373;
+}
+
+.site-footer .social, .site-footer .contact, .site-footer .links {
+}
+
+/* =================================
+   GAYA BARU UNTUK TOMBOL RESOURCES
+   ================================= */
+.resources-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Jarak antar tombol */
+  margin-top: 30px;
+  flex-wrap: wrap; /* Agar rapi di layar kecil */
+}
+
+.resource-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 28px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px; /* Membuat bentuk pil */
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.resource-button:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: white;
+}
+
+.resource-button .material-icons {
+  font-size: 26px; /* Ukuran ikon */
+}
+
+.resource-button .github-icon {
+  /* Style khusus untuk ikon GitHub SVG */
+  margin-bottom: -2px; /* Penyesuaian posisi vertikal */
+}
+
+/* Menghapus panah scroll down dari versi sebelumnya */
+.scroll-down-arrow {
+    display: none !important;
+}
+
+body.home-page .site-footer {
+    display: none;
+}
+
+/* =================================
+   GAYA BARU UNTUK KARTU SUMBER DAYA
+   ================================= */
+.tutorial-prompt-section .resources-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* Membuat kartu sama tinggi */
+  gap: 30px; /* Jarak antar kartu */
+  margin-top: 50px;
+  flex-wrap: wrap; 
+}
+
+.resource-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column; /* Mengatur item secara vertikal */
+}
+
+.resource-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.resource-icon-wrapper {
+  margin: 0 auto 25px auto;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+}
+
+.resource-icon-wrapper .material-icons,
+.resource-icon-wrapper .github-icon {
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  color: white;
+}
+
+.resource-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.resource-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  flex-grow: 1; /* Mendorong link ke bawah */
+  margin-bottom: 30px;
+}
+
+/* PERBAIKAN DI SINI */
+.resource-link {
+  display: inline-block;
+  font-weight: 600;
+  color: white;
+  text-decoration: none !important; /* MEMAKSA agar tidak ada garis bawah */
+  background: rgba(255,255,255,0.2);
+  padding: 10px 25px;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.resource-link:hover {
+  background: rgba(255,255,255,0.3);
+  text-decoration: none !important; /* MEMASTIKAN tidak ada garis bawah saat hover */
+  color: white; /* Menjaga warna teks tetap putih saat hover */
+}
+
+/* Menghapus elemen lama yang tidak diperlukan */
+.scroll-down-arrow, 
+body.home-page .site-footer {
+    display: none !important;
+}
+
+/* =================================
+   GAYA UNTUK PENJELASAN INDIKATOR
+   ================================= */
+.indicator-definitions {
+  text-align: center;
+  padding: 80px 20px; /* Jarak atas-bawah lebih besar */
+  color: white;
+}
+
+.indicator-definitions h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  margin-bottom: 50px; /* Jarak lebih besar ke kartu */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.definitions-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* Membuat kartu sama tinggi */
+  gap: 25px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.definition-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 25px 30px;
+  width: 100%;
+  max-width: 350px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1; /* Agar fleksibel */
+}
+
+.definition-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.definition-card h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.definition-card h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 15px;
+}
+
+.definition-card p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 1; /* Override opacity lama jika ada */
+}
+
+/* =================================
+   GAYA UNTUK DESKRIPSI GRAFIK & INTERPRETASI
+   ================================= */
+.chart-description {
+  margin-top: 15px; 
+  padding: 15px 20px;
+  font-size: 0.95rem; 
+  color: #555;     
+  background-color: #f8f9fa; 
+  border-left: 4px solid #667eea; 
+  line-height: 1.6;
+  text-align: justify;
+}
+
+body.dark-mode .chart-description {
+  color: var(--text-secondary);
+  background-color: rgba(0,0,0,0.2);
+  border-left-color: var(--accent-blue);
+}
+
+.chart-description h4.interpretation-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #34495e;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.chart-description p {
+    margin-bottom: 10px;
+}
+
+.chart-description p:last-child {
+    margin-bottom: 0;
+}
+
+.chart-description strong {
+  color: #2c3e50; 
+  font-weight: 700;
+}
+
