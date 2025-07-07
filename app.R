@@ -1,6 +1,3 @@
-Tentu, ini adalah gabungan dari `ui.R` dan `server.R` menjadi satu file `app.R`.
-
-```r
 # ====================================================================
 # 1. MEMUAT SEMUA LIBRARY YANG DIBUTUHKAN
 # ====================================================================
@@ -711,4 +708,3 @@ server <- function(input, output, session) {
 # 4. MENJALANKAN APLIKASI SHINY
 # ====================================================================
 shinyApp(ui = ui, server = server)
-```
