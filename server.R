@@ -541,7 +541,7 @@ server <- function(input, output, session) {
       first()
     
     div(class = "stats-section", id = "nationalDataSection", 
-        h3(HTML("&#x1F4CA; Data Nasional"), span(id = "nationalYear", input$yearSelect)), 
+        h3(HTML("Data Nasional"), span(id = "nationalYear", input$yearSelect)), 
         div(class = "stats-grid", 
             div(class="stat-card rls", div(class="stat-value", round(avg_rls, 2)), div(class="stat-label", "Rata-rata RLS Nasional")), 
             div(class="stat-card hls", div(class="stat-value", round(avg_hls, 2)), div(class="stat-label", "Rata-rata HLS Nasional")), 
@@ -570,7 +570,7 @@ server <- function(input, output, session) {
       pull(rank)
     
     div(class = "stats-section", id = "provinceStatsSection", 
-        h3(HTML("&#x1F3DB;&#xFE0F; Data Provinsi:"), span(id = "selectedProvinceName", input$provinceSelect), paste0(" (", input$yearSelect, ")")), 
+        h3(HTML("Data Provinsi:"), span(id = "selectedProvinceName", input$provinceSelect), paste0(" (", input$yearSelect, ")")), 
         div(class = "stats-grid", 
             div(class="stat-card rls", div(class="stat-value", prov_data$RLS), div(class="stat-label", "RLS Provinsi")), 
             div(class="stat-card hls", div(class="stat-value", prov_data$HLS), div(class="stat-label", "HLS Provinsi")), 
